@@ -381,8 +381,7 @@ class AlphaBetaPlayer(IsolationPlayer):
         legal_moves = game.get_legal_moves()
         return legal_moves[0]
         '''
-        '''
-        # should I just pass depth? probably
+        
         v = self.max_value(game, depth, alpha, beta)
         
         # List of tuples (utility, move)
@@ -399,8 +398,8 @@ class AlphaBetaPlayer(IsolationPlayer):
             if tup[0] == v:
                 return tup[1]
         return (-1,-1)
+        
         '''
-
         # List of tuples (utility, move)
         move_utilities = []
         # Generate the next level of the tree
@@ -410,6 +409,7 @@ class AlphaBetaPlayer(IsolationPlayer):
         # Add the utility of each move and the move itself to move_utilities
         for move in legal_moves:
             move_utilities.append((self.min_value(game.forecast_move(move), depth - 1, alpha, beta), move))
+            move_utilities.append((self.score(game.forecast_move(move), game.active_player), move))
 
         max_v = float("-inf")
         best_move = (-1,-1)
@@ -419,6 +419,7 @@ class AlphaBetaPlayer(IsolationPlayer):
                 best_move = tup[1]
 
         return best_move
+        '''
 
         raise NotImplementedError
     
